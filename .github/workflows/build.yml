@@ -32,7 +32,7 @@ jobs:
           echo "Fetching SDK list from $BASE_URL"
 
           SDK_FILE=$(curl -s $BASE_URL | \
-            grep -o 'openwrt-sdk-x86-64.*\.tar\.xz' | \
+            grep -o 'openwrt-sdk-x86-64[^"]*\.tar\.xz' | \
             head -n1)
 
           echo "Found SDK file: $SDK_FILE"
@@ -45,6 +45,7 @@ jobs:
           wget "${BASE_URL}${SDK_FILE}"
           tar xf "$SDK_FILE"
           mv openwrt-sdk-* openwrt-sdk
+
 
 
 
