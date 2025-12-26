@@ -25,9 +25,13 @@ jobs:
 
       - name: Download OpenWrt SDK (snapshot, apk)
         run: |
-          wget https://downloads.openwrt.org/snapshots/targets/x86/64/openwrt-sdk-snapshot-x86-64.tar.xz
-          tar xf openwrt-sdk-snapshot-x86-64.tar.xz
+          SDK_URL=$(curl -s https://downloads.openwrt.org/snapshots/targets/x86/64/ | \
+            grep -o 'openwrt-sdk-x86-64_.*\.tar\.xz' | head -n1)
+
+          wget https://downloads.openwrt.org/snapshots/targets/x86/64/$SDK_URL
+          tar xf $SDK_URL
           mv openwrt-sdk-* openwrt-sdk
+
 
       - name: Prepare feeds
         working-directory: openwrt-sdk
